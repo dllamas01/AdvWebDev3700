@@ -2,7 +2,7 @@ include ../layouts/layoutBS
 .container
     h1.mt-3
     div.mt-3
-        h1 Update id=#{id}
+        h1 Update id=#{id} title=#{title}
         p
             | Update new Book into our inventory
         if ( product == null )
@@ -10,7 +10,7 @@ include ../layouts/layoutBS
     div.mt-2
         form(action='/postUpdateProduct' method='post')
             .form-group
-                input.form-control(type='hidden' name='productId' value= id )
+                input.form-control(type='hidden' name='productId' value= product.id )
             .form-group
                 label(for='titleId') Title
                 input.form-control(type='text' aria-describedby='emailHelp' id='titleId' name='title' value= product.title )

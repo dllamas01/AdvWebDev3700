@@ -59,7 +59,7 @@ exports.editProduct = ( req, res, next ) => {
                 title : `Update record:${id} `,
                 id : rows[0].id,
                 from: 'updateProducts',
-                product: rows[0][0]
+                product: rows[0]
             })
         }).catch( err => {
         console.log( "DB Error=>");
@@ -67,8 +67,18 @@ exports.editProduct = ( req, res, next ) => {
     })
 }
 exports.postUpdateProduct = ( req, res, next ) => {
-    let id = req.body.productId;
+    let id = req.body.id;
     console.log(`id:${id}`);
-    console.log( `author:${req.body.author}`)
-    res.send("Happy day are here again made it to most update product" +id);
+    let author = req.body.author;
+    let title = req.body.title;
+    let price = req.body.price;
+    const product = new Product( title, author, price );
+    product.update(id).then((rows, fieldData)=>{
+        res.redirect("/showAdmin")
+    }).catch(err =>{
+        console.log("What the Heck ->"); console.log(err);
+    });
+    return;
+    // console.log( `author:${req.body.author}`)
+    // res.send("Happy day are here again made it to most update product" +id);
 }
